@@ -1,18 +1,18 @@
-/*vars ==================*/
+/*vars */
 html:root {
-    --header-height:100px
+    --header-height:50px;
 }
 
-/*vars END ==============*/
-/*config ==================*/
+/*vars END */
+/*config */
 $max-width-container: 1280;
 $padding-security: 15;
 html:root {
     --max-width-container: #{$max-width-container+ px};
 }
-/*config END ==============*/
+/*config END */
 
-/*font ==================*/
+/*font */
 html:root {
     --font-family-base: system-ui;
     --font-size-base: 20px;
@@ -21,10 +21,9 @@ html:root {
     --border-radius-base: 5px;
     --letter-spacing-base: normal;
 }
+/*font END */
 
-/*font END ==============*/
-
-/*colors ==================*/
+/*colors */
 html:root {
     --color-0-semi-transparrent: rgba(0, 0, 0, 0.5);
     --color-f-semi-transparrent: rgba(255, 255, 255, 0.5);
@@ -33,30 +32,29 @@ html:root {
     --color-accent: #000;
     --color-text-base: #000;
 }
+/*colors END */
 
-/*colors END ==============*/
-
-/*transition ==================*/
+/*transition */
 html:root {
     --transition-duration-base: .5s;
     --transition-function-base: ease-in-out;
     --transition-delay-base: .5s;
 }
 
-/*transition END ==============*/
+/*transition END */
 
-/*pd ==================*/
+/*pd */
 html:root {
     --padding-security: #{$padding-security+px};
     --padding-security-minus: #{-$padding-security+px};
 }
-/*pd END ==============*/
+/*pd END */
 
 
-/*z-index ==================*/
+/*z-index */
 html:root{
     --z-index-header:200;
     --z-index-focus-effect:300;
     --z-index-popup:500;
 }
-/*z-index END ==============*/
+/*z-index END */

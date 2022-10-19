@@ -5,7 +5,7 @@ import {isNum, isStr} from "./checkFunctions.js";
 import "wicg-inert"
 import '@scss/modules/focusEffect.scss'
 
-/*actions ==================*/
+/*actions */
 const actionsOptions = new class options {
     constructor() {
         this.moduleName = 'actions',
@@ -225,9 +225,9 @@ export const slide = {
         else this.up(element, duration, delay)
     }
 }
-/*actions ==================*/
+/*actions */
 
-/*bodyLock ==================*/
+/*bodyLock */
 export const bodyLock = {
     moduleName: 'bodyLock',
     status: false, add: (delay = 0) => {
@@ -260,9 +260,9 @@ export const bodyLock = {
         }
     }
 }
-/*bodyLock ==================*/
+/*bodyLock */
 
-/*focusEffect ==================*/
+/*focusEffect */
 export const focusEffect = {
     add(delay = 0) {
         if (isNum(delay)) {
@@ -286,4 +286,4 @@ export const focusEffect = {
         }
     }
 }
-/*focusEffect ==================*/
+/*focusEffect */

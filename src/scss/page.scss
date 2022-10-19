@@ -1,4 +1,4 @@
-/*body ==================*/
+/*body */
 body {
     font: normal normal var(--font-weight-base) var(--font-size-base) var(--font-family-base);
     line-height: var(--line-height-base);
@@ -14,9 +14,9 @@ body {
     //}
 }
 
-/*body END ==============*/
+/*body END */
 
-/*wrapper ==================*/
+/*wrapper */
 .wrapper {
     min-height: 100vh;
     display: grid;
@@ -27,9 +27,9 @@ body {
         min-width: 0;
     }
 }
-/*wrapper END ==============*/
+/*wrapper END */
 
-/*container ==================*/
+/*container */
 .container {
     display: block;
     width: 100%;
@@ -40,12 +40,12 @@ body {
         padding: 0;
     }
 }
-/*container END ==============*/
+/*container END */
 
-/*page ==================*/
+/*page */
 .page {
 }
-/*page END ==============*/
+/*page END */
 
 
 

@@ -9,6 +9,7 @@ export const gitignore = () => {
 		fs.appendFile('./.gitignore', 'node_modules/\r\n', cb);
 		fs.appendFile('./.gitignore', '.gitignore\r\n', cb);
 		fs.appendFile('./.gitignore', 'dist/\r\n', cb);
+		fs.appendFile('./.gitignore', '.idea/\r\n', cb);
 		fs.appendFile('./.gitignore', 'Source/\r\n', cb);
 		fs.appendFile('./.gitignore', 'version.json\r\n', cb);
 		fs.appendFile('./.gitignore', app.buildFolder + '\r\n', cb);

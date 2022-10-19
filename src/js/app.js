@@ -1,15 +1,15 @@
 
-/*window ==================*/
+/*window */
 import "./base/index.js";
-/*window ==================*/
+/*window */
 
 
-/*modules ==================*/
+/*modules */
 import "./modules/index.js";
-/*modules ==================*/
+/*modules */
 
-/*style ==================*/
+/*style */
 import "../scss/style.scss";
-/*style ==================*/
+/*style */
 
 
