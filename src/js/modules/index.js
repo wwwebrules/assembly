@@ -4,9 +4,11 @@
 /*galleries END ==============*/
 
 /*menu ==================*/
-// import {Menu} from './Menu.js'
-// const baseMenu = new Menu();
-// baseMenu.init()
+import {Menu} from './Menu.js';
+const iconMenu = document.querySelector('.menu-icon');
+const navMenu = document.querySelector('.menu');
+const baseMenu = new Menu('baseMenu' ,iconMenu, navMenu);
+baseMenu.init()
 /*menu END ==============*/
 
 /*popup ==================*/

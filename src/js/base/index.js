@@ -120,7 +120,7 @@ export const attrActions = {
         } else console.log(actionsOptions.messages.noCondition)
     },
 }
-export const hiddenActions = {
+ export const hiddenActions = {
     add(elements, delay = 0) {
         if (actionsOptions.hiddenCondition(elements, delay)) {
             window.setTimeout(() => {

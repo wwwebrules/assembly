@@ -1,4 +1,5 @@
 import {bodyLock} from "../base/index.js";
+import '@scss/modules/menu.scss';
 import {actionDelay, isStr} from "../base/checkFunctions.js";
 export class Menu {
     constructor(name, icon, nav, lock = true) {

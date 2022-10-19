@@ -1,7 +1,7 @@
 // Модуль работы со спойлерами =======================================================================================================================================================================================================================
 /*
 Для родителя слойлеров пишем атрибут data-spollers
-Для заголовков слойлеров пишем атрибут data-spoller
+Для заголовков слойлеров пишем атрибут data-spollers-title
 Если нужно включать\выключать работу спойлеров на разных размерах экранов
 пишем параметры ширины и типа брейкпоинта.
 
@@ -54,7 +54,7 @@ export function spollers() {
         }
         // Работа с контентом
         function initSpollerBody(spollersBlock, hideSpollerBody = true) {
-            const spollerTitles = spollersBlock.querySelectorAll('[data-spoller]');
+            const spollerTitles = spollersBlock.querySelectorAll('[data-spollers-title]');
             if (spollerTitles.length > 0) {
                 spollerTitles.forEach(spollerTitle => {
                     if (hideSpollerBody) {
@@ -72,8 +72,8 @@ export function spollers() {
         function setSpollerAction(e) {
             if (actionDelay(e.target)){
                 const el = e.target;
-                if (el.closest('[data-spoller]')) {
-                    const spollerTitle = el.closest('[data-spoller]');
+                if (el.closest('[data-spollers-title]')) {
+                    const spollerTitle = el.closest('[data-spollers-title]');
                     const spollersBlock = spollerTitle.closest('[data-spollers]');
                     const oneSpoller = spollersBlock.hasAttribute('data-one-spoller') ? true : false;
                     if (!spollersBlock.querySelectorAll('._slide').length) {
@@ -88,7 +88,7 @@ export function spollers() {
             }
         }
         function hideSpollersBody(spollersBlock) {
-            const spollerActiveTitle = spollersBlock.querySelector('[data-spoller]._spoller-active');
+            const spollerActiveTitle = spollersBlock.querySelector('[data-spollers-title]._spoller-active');
             if (spollerActiveTitle) {
                 spollerActiveTitle.classList.remove('_spoller-active');
                 slide.up(spollerActiveTitle.nextElementSibling, 500);
