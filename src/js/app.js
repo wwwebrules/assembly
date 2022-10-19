@@ -10,7 +10,6 @@ import "./modules/index.js";
 
 /*style ==================*/
 import "../scss/style.scss";
-import {slide} from "./base/index.js";
 /*style ==================*/
 
 
