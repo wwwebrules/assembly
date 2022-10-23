@@ -6,3 +6,4 @@ export const BODY = document.querySelector("body");
 export const WR = document.querySelector(".wrapper");
 export const HEADER = document.querySelector(".header");
 export const PAGE = document.querySelector(".page");
+export const FOOTER = document.querySelector(".footer");

@@ -1,47 +1,48 @@
-/*galleries */
+/* galleries */
 // import galleries  from './gallery.js'
 // galleries()
-/*galleries END */
+/* /galleries */
 
-/*menu */
-import {Menu} from './Menu.js';
+/* menu */
+import {Menu} from './menu.js';
 const iconMenu = document.querySelector('.menu-icon');
 const navMenu = document.querySelector('.menu');
 const baseMenu = new Menu('baseMenu' ,iconMenu, navMenu);
 baseMenu.init()
-/*menu END */
+/* /menu */
 
-/*popup */
-// import {Popup} from "./popup.js";
-// const basePopup = new Popup();
-/*popup END */
+/* popup */
+import {Popup} from "./popup.js";
+const basePopup = new Popup();
+/* /popup */
 
-/*sliders */
+/* sliders */
 // import  "./sliders.js";
-/*sliders END */
+/* /sliders */
 
-/*spollers */
+/* spollers */
 // import {spollers} from "./spoller.js";
 // spollers()
-/*spollers END */
+/* /spollers */
 
-/*sublist */
+/* sublist */
 // import  "./sublist.js";
 // sublist()
-/*sublist END */
+/* /sublist */
 
-/*tabs */
+/* tabs */
 // import {tabs} from "./tabs.js";
 // tabs()
-/*tabs END */
+/* /tabs */
 
-/*tippy */
+/* tippy */
 // import {initTippy} from "./tippy.js";
 // initTippy()
-/*tippy END */
+/* /tippy */
 
-/*animation */
+/* animation */
 import {scrollAnimation} from "./animations.js";
-scrollAnimation()
-/*animation END */
+scrollAnimation();
+/* /animation */
+
 

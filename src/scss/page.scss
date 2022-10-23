@@ -1,35 +1,37 @@
-/*body */
+/* .body */
 body {
-    font: normal normal var(--font-weight-base) var(--font-size-base) var(--font-family-base);
-    line-height: var(--line-height-base);
+    font: normal normal var(--font-weight-base) normal  var(--font-size-base)/var(--line-height-base) var(--font-family-base);
     color: var(--color-text-base);
     letter-spacing: var(--letter-spacing-base);
     margin: 0;
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    background-color: var(--color-body-bg);
+    width: 100%;
     &.lock {
         overflow: hidden;
     }
-    //&.loaded {
-    //    opacity: 1;
-    //}
+    &.loaded {
+        opacity: 1;
+    }
 }
 
-/*body END */
+/* /.body*/
 
-/*wrapper */
+/* .wrapper */
 .wrapper {
     min-height: 100vh;
     display: grid;
     grid-template-rows: auto 1fr auto;
-
+    position: relative;
     // Фикс для слайдеров
-    > * {
+     * {
         min-width: 0;
     }
 }
-/*wrapper END */
+/* /.wrapper */
 
-/*container */
+/* container */
 .container {
     display: block;
     width: 100%;
@@ -40,12 +42,11 @@ body {
         padding: 0;
     }
 }
-/*container END */
+/* /.container */
 
-/*page */
+/* page */
 .page {
 }
-/*page END */
-
+/* /.page */
 
 

@@ -10,7 +10,7 @@ export const sprite = () => {
 		.pipe(svgSprite({
 			mode: {
 				symbol: {
-					sprite: '../img/icons/icons.svg',
+					sprite: '../img/spriteIcons/icons.svg',
 					//example: true
 				}
 			},

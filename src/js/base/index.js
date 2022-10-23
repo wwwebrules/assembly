@@ -1,19 +1,19 @@
 import './window.js'
 
-import {WR, BASE_DURATION, BODY, PAGE} from "../const.js";
+import {WR, BASE_DURATION, BODY, PAGE, FOOTER, HEADER} from "../const.js";
 import {isNum, isStr} from "./checkFunctions.js";
 import "wicg-inert"
 import '@scss/modules/focusEffect.scss'
 
-/*actions */
+/* actions */
 const actionsOptions = new class options {
     constructor() {
         this.moduleName = 'actions',
-        this.messages = {
-            noCondition:`[${this.moduleName}] not pass the condition`,
-            done: `[${this.moduleName}] action done`,
-            noTag:`[${this.moduleName}] element is not tag`
-        }
+            this.messages = {
+                noCondition: `[${this.moduleName}] not pass the condition`,
+                done: `[${this.moduleName}] action done`,
+                noTag: `[${this.moduleName}] element is not tag`
+            }
     }
 
     classCondition(elements, className, delay = 0) {
@@ -120,7 +120,7 @@ export const attrActions = {
         } else console.log(actionsOptions.messages.noCondition)
     },
 }
- export const hiddenActions = {
+export const hiddenActions = {
     add(elements, delay = 0) {
         if (actionsOptions.hiddenCondition(elements, delay)) {
             window.setTimeout(() => {
@@ -225,16 +225,14 @@ export const slide = {
         else this.up(element, duration, delay)
     }
 }
-/*actions */
+/* /actions */
 
-/*bodyLock */
+/* bodyLock */
 export const bodyLock = {
     moduleName: 'bodyLock',
     status: false, add: (delay = 0) => {
         if (isNum(delay)) {
             window.setTimeout(() => {
-                // HEADER.style.paddingRight = window.innerWidth - WR.offsetWidth + 'px';
-                PAGE.inert = true
                 BODY.style.paddingRight = window.innerWidth - WR.offsetWidth + 'px';
                 BODY.classList.add('lock')
                 bodyLock.status = true;
@@ -244,9 +242,7 @@ export const bodyLock = {
     }, remove: (delay = 0) => {
         if (isNum(delay)) {
             window.setTimeout(() => {
-                // HEADER.style.paddingRight = '0px';
-                PAGE.inert = false
-                BODY.style.paddingRight = '0px';
+                // BODY.style.paddingRight = '0px';
                 BODY.classList.remove('lock')
                 bodyLock.status = false;
                 console.log(`[${bodyLock.moduleName}] remove `);
@@ -260,9 +256,9 @@ export const bodyLock = {
         }
     }
 }
-/*bodyLock */
+/* /bodyLock */
 
-/*focusEffect */
+/* focusEffect */
 export const focusEffect = {
     add(delay = 0) {
         if (isNum(delay)) {
@@ -286,4 +282,4 @@ export const focusEffect = {
         }
     }
 }
-/*focusEffect */
+/* /focusEffect */

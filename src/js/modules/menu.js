@@ -1,6 +1,7 @@
 import {bodyLock} from "../base/index.js";
 import '@scss/modules/menu.scss';
 import {actionDelay, isStr} from "../base/checkFunctions.js";
+import {FOOTER, PAGE} from "../const.js";
 export class Menu {
     constructor(name, icon, nav, lock = true) {
         this.moduleName = `[menu ${name}]`
@@ -24,9 +25,13 @@ export class Menu {
             this.status = true;
             this.icon.classList.add('active')
             this.nav.classList.add('opened')
-            if (this.lock) {
-                bodyLock.add()
+            if (PAGE ) {
+                PAGE.inert = true
             }
+            if (FOOTER){
+                FOOTER.inert = true
+            }
+            bodyLock.add()
             console.log(`${this.moduleName} opened`);
         }else console.log(`${this.options.messanges.noCondition}`)
     }
@@ -35,9 +40,14 @@ export class Menu {
             this.status = false;
             this.icon.classList.remove('active')
             this.nav.classList.remove('opened')
-            if (this.lock) {
-                bodyLock.remove()
+            if (PAGE ) {
+                PAGE.inert = false
             }
+            if (FOOTER){
+                FOOTER.inert = false
+            }
+            bodyLock.remove()
+
             console.log(`${this.moduleName} closed`);
         }else console.log(`${this.options.messanges.noCondition}`)
     }

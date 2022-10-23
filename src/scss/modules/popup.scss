@@ -1,4 +1,3 @@
-
 .popup {
     position: fixed;
     top: 0;
@@ -7,13 +6,16 @@
     right: 0;
     padding: 30px 10px;
     opacity: 0;
+    overflow: auto;
+    &::-webkit-scrollbar {
+        width: 0px;
+    }
     visibility: hidden;
-    transition: opacity var(--transition-duration-base) var(--transition-function-base) , visibility var(--transition-duration-base) var(--transition-function-base);
+    z-index: var(--z-index-popup);
+    transition: opacity var(--transition-duration-base) var(--transition-function-base), visibility var(--transition-duration-base) var(--transition-function-base) ;
     &_show{
-        z-index: var(--z-index-popup);
         opacity: 1;
         visibility: visible;
-
     }
 }
 .popup__wrapper {
@@ -26,15 +28,12 @@
     align-items: center;
 }
 .popup__body {
+    filter: drop-shadow(var(--drop-shadow-base));
     background-color: #eee;
     padding: 20px;
     width: 100%;
     max-width: 900px;
     border-radius: 5px;
-    transform: translateY(50px);
-    transition: transform var(--transition-duration-base) var(--transition-function-base);
     .popup_show  & {
-        transform: translateY(0px);
-        
     }
 }

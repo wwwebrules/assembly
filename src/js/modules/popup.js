@@ -2,8 +2,11 @@
 // (c) Фрилансер по жизни, Хмурый Кот
 // Документация по работе в шаблоне: https://template.fls.guru/template-docs/funkcional-popup.html
 // Сниппет (HTML): pl
-import {bodyLock, focusEffect} from "../base/index.js";
+import {bodyLock, focusEffect, hiddenActions} from "../base/index.js";
 import '@scss/modules/popup.scss'
+import {BASE_DELAY, WR} from "../const.js";
+import "wicg-inert"
+import {actionDelay} from "../base/checkFunctions.js";
 
 export class Popup {
     constructor(options) {
@@ -16,8 +19,8 @@ export class Popup {
             // Для сторонних объектов
             fixElementSelector: '[data-lp]', // Атрибут для элементов с левым паддингом (которые fixed)
             // Для объекта попапа
-            youtubeAttribute: 'data-popup-youtube', // Атрибут для кода youtube
-            youtubePlaceAttribute: 'data-popup-youtube-place', // Атрибут для вставки ролика youtube
+            youtubeAttribute: 'data-youtube', // Атрибут для кода youtube
+            youtubePlaceAttribute: 'data-youtube-place', // Атрибут для вставки ролика youtube
             setAutoplayYoutube: true,
             // Изменение классов
             classes: {
@@ -30,22 +33,19 @@ export class Popup {
             focusCatch: true, // Фокус внутри попапа зациклен
             closeEsc: true, // Закрытие по ESC
             bodyLock: true, // Блокировка скролла
+            bodyLockDelay: 500, // Задержка блокировки скролла
+
             hashSettings: {
                 location: true, // Хэш в адресной строке
                 goHash: true, // Переход по наличию в адресной строке
             },
             on: { // События
-                beforeOpen: function () {
-                },
-                afterOpen: function () {
-                },
-                beforeClose: function () {
-                },
-                afterClose: function () {
-                },
+                beforeOpen: function () { },
+                afterOpen: function () { },
+                beforeClose: function () { },
+                afterClose: function () { },
             },
         }
-        this.youTubeCode;
         this.isOpen = false;
         // Текущее окно
         this.targetOpen = {
@@ -99,20 +99,13 @@ export class Popup {
                 ...options?.on,
             }
         }
-        this.bodyLock = false;
         this.options.init ? this.initPopups() : null
     }
-
     initPopups() {
         this.popupLogging(`Проснулся`);
-        if (document.querySelectorAll(`.${this.options.classes.popup}`).length > 0) {
-            document.querySelectorAll(`.${this.options.classes.popup}`).forEach((popup) => {
-                popup.hidden = false
-            })
-        }
+        hiddenActions.remove(document.querySelectorAll(`.${this.options.classes.popup}`))
         this.eventsPopup();
     }
-
     eventsPopup() {
         // Клик на всем документе
         document.addEventListener("click", function (e) {
@@ -123,9 +116,6 @@ export class Popup {
                 this._dataValue = buttonOpen.getAttribute(this.options.attributeOpenButton) ?
                     buttonOpen.getAttribute(this.options.attributeOpenButton) :
                     'error';
-                this.youTubeCode = buttonOpen.getAttribute(this.options.youtubeAttribute) ?
-                    buttonOpen.getAttribute(this.options.youtubeAttribute) :
-                    null;
                 if (this._dataValue !== 'error') {
                     if (!this.isOpen) this.lastFocusEl = buttonOpen;
                     this.targetOpen.selector = `${this._dataValue}`;
@@ -136,10 +126,12 @@ export class Popup {
                 } else this.popupLogging(`Ой ой, не заполнен атрибут у ${buttonOpen.classList}`);
 
                 return;
+
             }
             // Закрытие на пустом месте (popup__wrapper) и кнопки закрытия (popup__close) для закрытия
             const buttonClose = e.target.closest(`[${this.options.attributeCloseButton}]`);
             if (buttonClose || !e.target.closest(`.${this.options.classes.popupContent}`) && this.isOpen) {
+
                 e.preventDefault();
                 this.close();
                 return;
@@ -157,7 +149,15 @@ export class Popup {
                 return;
             }
         }.bind(this))
-
+        // Событие отправки формы
+        if (document.querySelector('form[data-ajax],form[data-dev]')) {
+            document.addEventListener("formSent", function (e) {
+                const popup = e.detail.form.dataset.popupMessage;
+                if (popup) {
+                    this.open(popup);
+                }
+            }.bind(this));
+        }
         // Открытие по хешу
         if (this.options.hashSettings.goHash) {
             // Проверка изменения адресной строки
@@ -167,19 +167,18 @@ export class Popup {
                 } else {
                     this.close(this.targetOpen.selector);
                 }
+
             }.bind(this))
 
             window.addEventListener('load', function () {
                 if (window.location.hash) {
                     this._openToHash();
                 }
+
             }.bind(this))
         }
     }
-
     open(selectorValue) {
-        // Если перед открытием попапа был режим lock
-        this.bodyLock = bodyLock.status && !this.isOpen ? true : false;
 
         // Если ввести значение селектора (селектор настраивается в options)
         if (selectorValue && typeof (selectorValue) === "string" && selectorValue.trim() !== "") {
@@ -196,10 +195,16 @@ export class Popup {
         this.targetOpen.element = document.querySelector(this.targetOpen.selector);
 
         if (this.targetOpen.element) {
+            focusEffect.add()
+            if (WR){
+                WR.inert = true
+            }
             // YouTube
-            if (this.youTubeCode) {
-                const codeVideo = this.youTubeCode;
+            if (this.targetOpen.element.hasAttribute(this.options.youtubeAttribute)) {
+                const codeVideo = this.targetOpen.element.getAttribute(this.options.youtubeAttribute);
+
                 const urlVideo = `https://www.youtube.com/embed/${codeVideo}?rel=0&showinfo=0&autoplay=1`
+
                 const iframe = document.createElement('iframe');
                 iframe.setAttribute('allowfullscreen', '');
 
@@ -208,10 +213,8 @@ export class Popup {
 
                 iframe.setAttribute('src', urlVideo);
 
-                if (!this.targetOpen.element.querySelector(`[${this.options.youtubePlaceAttribute}]`)) {
-                    const youtubePlace = this.targetOpen.element.querySelector('.popup__text').setAttribute(`${this.options.youtubePlaceAttribute}`, '');
-                }
-                this.targetOpen.element.querySelector(`[${this.options.youtubePlaceAttribute}]`).appendChild(iframe);
+                if (this.targetOpen.element.querySelector(`[${this.options.youtubePlaceAttribute}]`))
+                    this.targetOpen.element.querySelector(`[${this.options.youtubePlaceAttribute}]`).appendChild(iframe);
             }
             if (this.options.hashSettings.location) {
                 // Получение хэша и его выставление
@@ -221,24 +224,16 @@ export class Popup {
 
             // До открытия
             this.options.on.beforeOpen(this);
-            // Создаем свое событие после открытия попапа
-            document.dispatchEvent(new CustomEvent("beforePopupOpen", {
-                detail: {
-                    popup: this
-                }
-            }));
 
             this.targetOpen.element.classList.add(this.options.classes.popupActive);
-            document.documentElement.classList.add(this.options.classes.bodyActive);
+            document.body.classList.add(this.options.classes.bodyActive);
 
-            if (!this._reopen) {
-                !this.bodyLock ? bodyLock.add() : null;
-                focusEffect.add()
-            } else this._reopen = false;
+            if (!this._reopen) bodyLock.toggle();
+            else this._reopen = false;
 
             this.targetOpen.element.setAttribute('aria-hidden', 'false');
 
-            // Запоминаю это открытое окно. Оно будет последним открытым
+            // // Запоминаю это открытое окно. Оно будет последним открытым
             this.previousOpen.selector = this.targetOpen.selector;
             this.previousOpen.element = this.targetOpen.element;
 
@@ -251,7 +246,8 @@ export class Popup {
             }, 50);
 
             // После открытия
-            this.options.on.afterOpen(this);
+            //this.options.on.afterOpen(this);
+
             // Создаем свое событие после открытия попапа
             document.dispatchEvent(new CustomEvent("afterPopupOpen", {
                 detail: {
@@ -260,10 +256,14 @@ export class Popup {
             }));
             this.popupLogging(`Открыл попап`);
 
-        } else this.popupLogging(`Ой ой, такого попапа нет.Проверьте корректность ввода. `);
+        } else this.popupLogging(`Ой ой, такого попапа нет. Проверьте корректность ввода. `);
     }
-
     close(selectorValue) {
+        if (WR){
+            setTimeout(()=>{
+                WR.inert = false
+            }, BASE_DELAY)
+        }
         if (selectorValue && typeof (selectorValue) === "string" && selectorValue.trim() !== "") {
             this.previousOpen.selector = selectorValue;
         }
@@ -272,15 +272,8 @@ export class Popup {
         }
         // До закрытия
         this.options.on.beforeClose(this);
-        // Создаем свое событие перед закрытием попапа
-        document.dispatchEvent(new CustomEvent("beforePopupClose", {
-            detail: {
-                popup: this
-            }
-        }));
-
         // YouTube
-        if (this.youTubeCode) {
+        if (this.targetOpen.element.hasAttribute(this.options.youtubeAttribute)) {
             if (this.targetOpen.element.querySelector(`[${this.options.youtubePlaceAttribute}]`))
                 this.targetOpen.element.querySelector(`[${this.options.youtubePlaceAttribute}]`).innerHTML = '';
         }
@@ -288,33 +281,27 @@ export class Popup {
         // aria-hidden
         this.previousOpen.element.setAttribute('aria-hidden', 'true');
         if (!this._reopen) {
-            document.documentElement.classList.remove(this.options.classes.bodyActive);
-            !this.bodyLock ? bodyLock.remove(500) : null;
-            focusEffect.remove()
+            document.body.classList.remove(this.options.classes.bodyActive);
+            bodyLock.toggle(BASE_DELAY);
             this.isOpen = false;
+            focusEffect.remove()
+
         }
         // Очищение адресной строки
         this._removeHash();
         if (this._selectorOpen) {
             this.lastClosed.selector = this.previousOpen.selector;
             this.lastClosed.element = this.previousOpen.element;
+
         }
         // После закрытия
         this.options.on.afterClose(this);
-        // Создаем свое событие после закрытия попапа
-        document.dispatchEvent(new CustomEvent("afterPopupClose", {
-            detail: {
-                popup: this
-            }
-        }));
-
         setTimeout(() => {
             this._focusTrap();
         }, 50);
 
         this.popupLogging(`Закрыл попап`);
     }
-
     // Получение хэша
     _getHash() {
         if (this.options.hashSettings.location) {
@@ -322,25 +309,23 @@ export class Popup {
                 this.targetOpen.selector : this.targetOpen.selector.replace('.', '#')
         }
     }
-
     _openToHash() {
         let classInHash = document.querySelector(`.${window.location.hash.replace('#', '')}`) ? `.${window.location.hash.replace('#', '')}` :
             document.querySelector(`${window.location.hash}`) ? `${window.location.hash}` :
                 null;
 
-        const buttons = document.querySelector(`[${this.options.attributeOpenButton} = "${classInHash}"]`) ? document.querySelector(`[${this.options.attributeOpenButton} = "${classInHash}"]`) : document.querySelector(`[${this.options.attributeOpenButton} = "${classInHash.replace('.', "#")}"]`);
-        if (buttons && classInHash) this.open(classInHash);
+        const buttons = document.querySelector(`[${this.options.attributeOpenButton}="${classInHash}"]`);
+        if (buttons) {
+            if (classInHash) this.open(classInHash)
+        }
     }
-
     // Утсановка хэша
     _setHash() {
         history.pushState('', '', this.hash);
     }
-
     _removeHash() {
         history.pushState('', '', window.location.href.split('#')[0])
     }
-
     _focusCatch(e) {
         const focusable = this.targetOpen.element.querySelectorAll(this._focusEl);
         const focusArray = Array.prototype.slice.call(focusable);
@@ -355,7 +340,6 @@ export class Popup {
             e.preventDefault();
         }
     }
-
     _focusTrap() {
         const focusable = this.previousOpen.element.querySelectorAll(this._focusEl);
         if (!this.isOpen && this.lastFocusEl) {
@@ -364,7 +348,6 @@ export class Popup {
             focusable[0].focus();
         }
     }
-
     // Функция вывода в консоль
     popupLogging(message) {
         this.options.logging ? console.log(`[Попапос]: ${message}`) : null;

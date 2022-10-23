@@ -1,17 +1,17 @@
-/*hidden */
+/* hidden */
 *[hidden]{
     display: none !important;
 }
-/*hidden END */
+/* /hidden */
 
 
-/*icon-svg */
+/* icon-svg */
 .icon-svg {
     fill: currentColor;
 }
-/*icon-svg END */
+/* /icon-svg */
 
-/*ibg */
+/* .ibg */
 .ibg {
     position: relative;
 
@@ -24,19 +24,17 @@
         object-fit: cover;
     }
 }
-
 .ibg_contain {
     img {
         object-fit: contain;
     }
 }
-
 .ibg_resp {
     padding-bottom: 56.25%;
 }
-/*ibg END */
+/* /.ibg */
 
-/*vgb */
+/* .vgb */
 .vbg {
     position: relative;
     overflow: hidden;
@@ -51,12 +49,10 @@
         height: 100%;
     }
 }
-
 .vbg_resp {
     padding-bottom: 56.25%;
 }
-
-/*vgb END */
+/* /.vgb */
 
 .content-block {
     > *:first-child {
@@ -70,6 +66,7 @@
     ul {
         margin: var(--padding-security) 0;
         padding-left: 17px;
+        list-style: inside;
     }
     p{
         margin: var(--padding-security) 0;

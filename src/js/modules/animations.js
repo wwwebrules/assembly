@@ -16,9 +16,8 @@ export const scrollAnimation = () => {
         scrollAnimationTl
             .fromTo(el, {opacity: 0}, {
                 opacity: 1,
-                duration: .5,
+                duration: .7,
                 delay: 0,
             })
     })
 }
-
