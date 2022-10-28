@@ -1,6 +1,6 @@
 {
 	"name": "webrules webpack + gulp assembly",
-	"version": "1.0.7",
+	"version": "1.0.8",
 	"description": "",
 	"author": "webrules <wwwebrules.gmail.com>",
 	"private": true,
@@ -66,6 +66,9 @@
 	"dependencies": {
 		"gsap": "^3.11.1",
 		"lightgallery": "latest",
+		"scrollmagic": "^2.0.8",
+		"scrollmagic-plugin-gsap": "^1.0.4",
+		"scrollmagic-plugins": "^1.0.8",
 		"smooth-scrollbar": "^8.8.1",
 		"swiper": "^8.3.1",
 		"tippy.js": "^6.3.7",

@@ -4,16 +4,16 @@
 /* /galleries */
 
 /* menu */
-import {Menu} from './menu.js';
-const iconMenu = document.querySelector('.menu-icon');
-const navMenu = document.querySelector('.menu');
-const baseMenu = new Menu('baseMenu' ,iconMenu, navMenu);
-baseMenu.init()
+// import {Menu} from './menu.js';
+// const iconMenu = document.querySelector('.menu-icon');
+// const navMenu = document.querySelector('.menu');
+// const baseMenu = new Menu('baseMenu' ,iconMenu, navMenu);
+// baseMenu.init()
 /* /menu */
 
 /* popup */
-import {Popup} from "./popup.js";
-const basePopup = new Popup();
+// import {Popup} from "./popup.js";
+// const basePopup = new Popup();
 /* /popup */
 
 /* sliders */
@@ -41,8 +41,7 @@ const basePopup = new Popup();
 /* /tippy */
 
 /* animation */
-import {scrollAnimation} from "./animations.js";
-scrollAnimation();
+import  "./animations.js";
 /* /animation */
 
 
