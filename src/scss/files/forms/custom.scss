@@ -1,9 +1,12 @@
-.custom-checkbox {
-    --size:30px;
+// сниппет ci
+
+.custom-input {
+    --size: 30px;
     position: relative;
     width: var(--size);
     height: var(--size);
-    input{
+    display: inline-block;
+    input {
         position: absolute;
         opacity: 0;
         height: 100%;
@@ -11,76 +14,34 @@
         z-index: 1;
         margin: 0;
         cursor: pointer;
+        &:disabled{
+            cursor: default;
+        }
     }
-    input:checked ~ &__body{
-        background-color: cornflowerblue;
-    }
-    input:focus ~ &__body{
-        outline: 1px solid  var(--color-0);
-    }
-    input:disabled{
-        cursor: default;
-    }
-    input:disabled ~ &__body{
-        background-color: #f1f1f1;
-        border-color: rgba(100, 149, 237, 0.61);
-    }
-    input:disabled:checked ~ &__body{
-        background-color: rgba(100, 149, 237, 0.61);
-        border-color: rgba(100, 149, 237, 0.61);
 
-    }
-    // .custom-checkbox__body
     &__body {
+        display: inline-block;
         width: 100%;
         height: 100%;
         background-color: #f1f1f1;
-        border: 1px solid cornflowerblue;
-        border-radius: 2px;
+        border: 1px solid gray;
         transition: background-color var(--transition-duration-base) var(--transition-function-base),
         border-color var(--transition-duration-base) var(--transition-function-base);
-    }
-}
-.custom-radio {
-    --size:30px;
-    position: relative;
-    width: var(--size);
-    height: var(--size);
-    input{
-        position: absolute;
-        opacity: 0;
-        height: 100%;
-        width: 100%;
-        z-index: 1;
-        margin: 0;
-        cursor: pointer;
-    }
-    input:checked ~ &__body{
-        background-color: cornflowerblue;
-    }
-    input:focus ~ &__body{
-        outline: 1px solid  var(--color-0);
-    }
-    input:disabled{
-        cursor: default;
-    }
-    input:disabled ~ &__body{
-        background-color: #f1f1f1;
-        border-color: rgba(100, 149, 237, 0.61);
-    }
-    input:disabled:checked ~ &__body{
-        background-color: rgba(100, 149, 237, 0.61);
-        border-color: rgba(100, 149, 237, 0.61);
-
-    }
-    // .custom-radio__body
-    &__body {
-        width: 100%;
-        height: 100%;
-        background-color: #f1f1f1;
-        border: 1px solid cornflowerblue;
-        border-radius: 50%;
-        transition: background-color var(--transition-duration-base) var(--transition-function-base),
-        border-color var(--transition-duration-base) var(--transition-function-base);
+        font-size: 0px;
+        input:focus ~ & {
+            outline: 1px solid var(--color-0);
+        }
+        input:checked ~ &{
+            background-color: cornflowerblue;
+        }
+        input:disabled ~ &{
+            opacity: .5;
+        }
+        input[type=radio] ~ & {
+            border-radius: 50%;
+        }
+        input[type=checkbox] ~ & {
+            border-radius: 0%;
+        }
     }
 }
